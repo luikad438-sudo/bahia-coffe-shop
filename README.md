@@ -15,3 +15,4 @@ Open `index.html` in a browser, or serve the folder with any static web server.
 ## Notes
 
 The contact section includes a Google Maps embed and the review carousel uses duplicated hidden cards so the loop stays continuous.
+The site is static and can be deployed directly from the repository root.
