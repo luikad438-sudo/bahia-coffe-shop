@@ -4,7 +4,8 @@ Static website for Bahia's Coffee Shop, built with HTML, CSS, and vanilla JavaSc
 
 ## Files
 
-- `index.html` - page markup and SEO metadata
+- `index.html` - home page markup and SEO metadata (curated menu highlights)
+- `menu.html` - full menu page, grouped by category, linked from the home highlights
 - `style.css` - responsive visual design and layout (base "Glass" look)
 - `script.js` - navigation, reveal effects, review marquee, and contact form behavior
 

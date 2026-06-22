@@ -391,6 +391,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .bento-overlay h3 { color: #fff; }
 .bento-overlay p { color: rgba(255,255,255,0.9); }
 
+/* Highlights -> full menu call to action */
+.menu-cta { display: flex; flex-direction: column; align-items: center; gap: 0.7rem; margin-top: var(--space-lg); text-align: center; }
+.menu-cta-note { color: var(--muted); font-size: 0.9rem; font-weight: 700; }
+
+/* ---------- FULL MENU PAGE ---------- */
+.menu-hero { padding-top: calc(var(--nav-height) + 3.2rem); padding-bottom: 1.5rem; text-align: center; }
+.menu-hero .eyebrow { justify-content: center; }
+.menu-hero h1 { font-size: 3.4rem; margin-bottom: 0.8rem; text-wrap: balance; }
+.menu-hero p { color: var(--ink-soft); max-width: 52ch; margin: 0 auto 1.4rem; font-size: 1.08rem; }
+.menu-hero .menu-cta { margin-top: 0; }
+
+.menu-wrap { display: flex; flex-direction: column; gap: 1.5rem; }
+.menu-cat { padding: 2rem 2.2rem; border-radius: var(--radius-md); background: rgba(255,252,246,0.78); }
+.menu-cat-head { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.1rem; }
+.menu-cat-head h2 { font-size: 1.7rem; color: var(--trust); white-space: nowrap; }
+.menu-cat-head .rule { flex: 1; height: 1px; background: rgba(42,30,21,0.14); }
+.menu-cat-head .cat-ic {
+  display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; flex-shrink: 0;
+  border-radius: 12px; color: var(--primary-2);
+  background: linear-gradient(140deg, var(--trust), #4A2F1C);
+}
+.menu-list { display: flex; flex-direction: column; }
+.menu-dish { padding: 0.95rem 0; border-bottom: 1px solid rgba(42,30,21,0.09); }
+.menu-dish:last-child { border-bottom: none; }
+.menu-dish h3 { font-size: 1.12rem; margin-bottom: 0.2rem; color: var(--ink); }
+.menu-dish p { color: var(--ink-soft); font-size: 0.92rem; }
+.menu-foot { text-align: center; margin-top: var(--space-xl); }
+.menu-foot p { color: var(--ink-soft); margin-bottom: 1.1rem; }
+
+@media (max-width: 560px) {
+  .menu-hero h1 { font-size: 2.4rem; }
+  .menu-cat { padding: 1.5rem 1.3rem; }
+  .menu-cat-head h2 { font-size: 1.4rem; }
+}
+
 /* ---------- ABOUT ---------- */
 .about-grid { display: grid; grid-template-columns: 0.95fr 1.05fr; gap: var(--space-xl); align-items: center; }
 .about-media { position: relative; }
