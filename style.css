@@ -173,7 +173,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   gap: 0.55rem; padding: var(--pad-y) var(--pad-x);
   font-family: var(--font-body); font-weight: 800; font-size: 0.95rem; letter-spacing: 0.01em;
   border: 1px solid transparent; border-radius: var(--radius-pill);
-  min-height: 44px; cursor: pointer; touch-action: manipulation; white-space: nowrap; overflow: hidden;
+  min-height: 44px; cursor: pointer; touch-action: manipulation; white-space: normal; overflow: hidden;
   transition: transform var(--t), box-shadow var(--t-smooth), background var(--t-smooth), color var(--t-smooth);
 }
 .btn svg { flex-shrink: 0; }
@@ -405,7 +405,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .menu-wrap { display: flex; flex-direction: column; gap: 1.5rem; }
 .menu-cat { padding: 2rem 2.2rem; border-radius: var(--radius-md); background: rgba(255,252,246,0.78); }
 .menu-cat-head { display: flex; align-items: center; gap: 1.1rem; margin-bottom: 1.1rem; }
-.menu-cat-head h2 { font-size: 1.7rem; color: var(--trust); white-space: nowrap; }
+.menu-cat-head h2 { font-size: 1.7rem; color: var(--trust); }
 .menu-cat-head .rule { flex: 1; height: 1px; background: rgba(42,30,21,0.14); }
 .menu-cat-head .cat-ic {
   display: inline-flex; align-items: center; justify-content: center; width: 42px; height: 42px; flex-shrink: 0;
@@ -671,6 +671,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   .float-card, .steam { display: none; }
   .footer-bottom-inner { justify-content: center; text-align: center; }
   .map-card { height: 240px; }
+}
+
+/* ============================================================
+   TRANSLATION SAFETY
+   Auto-translated text (e.g. EN -> DE) is often longer. Let long
+   words wrap and hyphenate instead of spilling out of their boxes,
+   and let flex/grid children shrink so they never force overflow.
+   ============================================================ */
+h1, h2, h3, h4, p, span, a, li, label, td, th, .btn, .eyebrow, .nav-link {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+h1, h2, h3, h4 { hyphens: auto; -webkit-hyphens: auto; }
+.btn { text-align: center; }
+/* flex/grid items default to min-width:auto, which can overflow; allow shrink */
+.hero-copy, .about-content, .bento-item, .why-card, .menu-cat, .menu-list,
+.contact-left, .contact-right, .review-card, .float-card, .about-badge,
+.stat-card, .hours-card, .footer-col, .nav-links, .cta-inner > div {
+  min-width: 0;
 }
 
 /* ---------- REDUCED MOTION ---------- */
