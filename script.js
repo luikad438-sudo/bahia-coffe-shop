@@ -139,6 +139,16 @@
     });
   }
 
+  /* ---------- 6b. Decorative quote marks on review cards ---------- */
+  $$('.review-card').forEach((card) => {
+    if (card.querySelector('.quote-mark')) return;
+    const q = document.createElement('span');
+    q.className = 'quote-mark';
+    q.setAttribute('aria-hidden', 'true');
+    q.textContent = '“';
+    card.prepend(q);
+  });
+
   /* ---------- 7. Back to top ---------- */
   const toTop = $('#to-top');
   const onScrollTop = () => toTop.classList.toggle('show', window.scrollY > 600);
