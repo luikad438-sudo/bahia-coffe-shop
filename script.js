@@ -107,7 +107,7 @@
 
   /* ---------- 6. Contact form ---------- */
   const form = $('#contact-form');
-  const successMsg = $('#form-success');
+  const formNotice = $('#form-notice');
   const validators = {
     name:    (v) => (v.trim().length >= 2 ? '' : 'Please enter your name.'),
     phone:   (v) => (/^[+]?[\d\s().-]{7,}$/.test(v.trim()) ? '' : 'Please enter a valid phone number.'),
@@ -125,7 +125,6 @@
   if (form) {
     const fields = $$('input, textarea', form);
     const submitBtn = $('button[type="submit"]', form);
-    const submitDefault = submitBtn ? submitBtn.textContent : '';
     fields.forEach((f) => {
       f.addEventListener('blur', () => validate(f));
       f.addEventListener('input', () => { if (f.closest('.form-row').classList.contains('invalid')) validate(f); });
@@ -135,25 +134,8 @@
       let ok = true, firstBad = null;
       fields.forEach((f) => { const v = validate(f); if (!v && !firstBad) firstBad = f; ok = ok && v; });
       if (!ok) { if (firstBad) firstBad.focus(); return; }
-      successMsg.hidden = true;
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.setAttribute('aria-busy', 'true');
-        submitBtn.textContent = 'Sending...';
-      }
-      window.clearTimeout(form._submitT);
-      form._submitT = window.setTimeout(() => {
-        successMsg.hidden = false;
-        form.reset();
-        fields.forEach((f) => setState(f, ''));
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.removeAttribute('aria-busy');
-          submitBtn.textContent = submitDefault;
-        }
-        window.clearTimeout(form._t);
-        form._t = window.setTimeout(() => { successMsg.hidden = true; }, 6000);
-      }, reduceMotion ? 0 : 450);
+      if (formNotice) formNotice.hidden = false;
+      if (submitBtn) submitBtn.focus();
     });
   }
 

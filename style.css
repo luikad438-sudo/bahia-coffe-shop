@@ -437,12 +437,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .form-row.invalid input, .form-row.invalid textarea { border-color: #dc2626; }
 .error-msg { font-size: 0.8rem; color: #dc2626; min-height: 1rem; }
-.form-success {
+.form-notice {
   display: flex; align-items: center; gap: 0.5rem; padding: 0.9rem 1rem;
-  background: rgba(31,157,138,0.14); border: 1px solid var(--teal); border-radius: var(--radius-sm);
-  color: var(--ink); font-size: 0.92rem; font-weight: 700;
+  background: rgba(247,201,72,0.18); border: 1px solid rgba(247,201,72,0.46); border-radius: var(--radius-sm);
+  color: var(--primary-ink); font-size: 0.92rem; font-weight: 700;
 }
-.form-success svg { color: var(--teal); flex-shrink: 0; }
+.form-notice svg { color: var(--star); flex-shrink: 0; }
 
 .contact-right { display: flex; flex-direction: column; gap: 1.25rem; }
 .hours-card { padding: 1.7rem; border-radius: var(--radius-md); background: rgba(255,255,255,0.78); overflow-x: auto; }
