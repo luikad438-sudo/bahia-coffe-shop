@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="robots" content="noindex" />
+
+  <!-- ============ SEO / META ============ -->
+  <title>Style Preview — Bahia's Coffee Shop</title>
+  <meta name="description" content="Style preview for Bahia's Coffee Shop — switch between Glass, Editorial and Noir UI directions." />
+  <meta name="theme-color" content="#F7F1E7" />
+  <meta name="author" content="Bahia's Coffee Shop" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Bahia's Coffee Shop | Breakfast & Lunch in Three Lakes" />
+  <meta property="og:description" content="Good food, caring service, fair prices, and a menu built for breakfast, lunch, and coffee breaks." />
+  <meta property="og:type" content="business.business" />
+  <meta property="og:locale" content="en_US" />
+
+  <!-- ============ FONTS ============ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Nunito+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ============ STYLES ============ -->
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" id="theme-css" href="theme-glass.css" />
+
+  <!-- ============ STYLE SWITCHER (preview only) ============ -->
+  <style>
+    .style-switcher{
+      position:fixed; z-index:2000; left:50%; bottom:1.1rem; transform:translateX(-50%);
+      display:flex; align-items:center; gap:.35rem; padding:.4rem;
+      border-radius:999px; background:rgba(20,16,11,.82);
+      -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+      box-shadow:0 14px 40px rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.12);
+    }
+    .style-switcher .ss-label{
+      color:#EADFCB; font:800 .7rem/1 'Nunito Sans',sans-serif;
+      text-transform:uppercase; letter-spacing:.12em; padding:0 .5rem 0 .65rem; opacity:.8;
+    }
+    .style-switcher button{
+      cursor:pointer; border:0; padding:.5rem .95rem; border-radius:999px;
+      font:800 .82rem/1 'Nunito Sans',sans-serif; color:#EADFCB; background:transparent;
+      transition:background .2s ease,color .2s ease;
+    }
+    .style-switcher button:hover{ background:rgba(255,255,255,.10); }
+    .style-switcher button.is-active{ background:#E2C076; color:#1A130C; }
+    @media (max-width:560px){
+      .style-switcher{ gap:.2rem; padding:.35rem; }
+      .style-switcher .ss-label{ display:none; }
+      .style-switcher button{ padding:.5rem .7rem; font-size:.78rem; }
+    }
+  </style>
+
+  <!-- ============ STRUCTURED DATA (Local Business SEO) ============ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Bahia's Coffee Shop",
+    "priceRange": "$10-20",
+    "servesCuisine": ["Coffee", "Breakfast", "Lunch", "Latin American"],
+    "areaServed": { "@type": "Place", "name": "Three Lakes area" },
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "4.6", "reviewCount": "74" },
+    "menu": "https://www.google.com/search?q=Bahia%27s+Coffee+Shop+menu"
+  }
+  </script>
+</head>
+
+<body>
+  <a href="#hero" class="skip-link">Skip to main content</a>
+
+  <div class="bg-mesh" aria-hidden="true"></div>
+
+  <!-- ================= STYLE SWITCHER ================= -->
+  <div class="style-switcher" role="group" aria-label="Choose a visual style">
+    <span class="ss-label">Style</span>
+    <button type="button" data-theme="glass" aria-pressed="true">Glass</button>
+    <button type="button" data-theme="editorial" aria-pressed="false">Editorial</button>
+    <button type="button" data-theme="noir" aria-pressed="false">Noir</button>
+  </div>
+
+  <!-- ================= NAVBAR ================= -->
+  <header class="navbar" id="navbar">
+    <div class="container nav-inner glass">
+      <a href="#hero" class="logo" aria-label="Bahia's Coffee Shop home">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h12v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 2v2"/><path d="M12 2v2"/><path d="M16 2v2"/></svg>
+        </span>
+        <span class="logo-text">Bahia's <span class="accent">Coffee Shop</span></span>
+      </a>
+
+      <nav class="nav-links" id="nav-links" aria-label="Primary navigation">
+        <a href="#services" class="nav-link">Menu</a>
+        <a href="#about" class="nav-link">About</a>
+        <a href="#reviews" class="nav-link">Reviews</a>
+        <a href="#contact" class="nav-link">Contact</a>
+        <a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+order+online" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-sm nav-cta magnetic">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          Order Online
+        </a>
+      </nav>
+
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <span class="pill glass reveal" data-reveal>
+          <span class="dot"></span> Open today - closes 3pm
+        </span>
+        <h1 class="hero-title reveal" data-reveal>
+          Breakfast & lunch <span class="grad-text">in Three Lakes</span>
+        </h1>
+        <p class="hero-sub reveal" data-reveal>
+          Coffee, croquetas, sandwiches, soups, and homestyle plates served with the warm care regulars keep coming back for.
+        </p>
+
+        <div class="hero-actions reveal" data-reveal>
+          <a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+order+online" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg magnetic">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            Order Online
+          </a>
+          <a href="#services" class="btn btn-glass btn-lg magnetic">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5V4.5A2.5 2.5 0 0 1 6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5Z"/><path d="M8 6h8"/><path d="M8 10h8"/><path d="M8 14h5"/></svg>
+            View Menu
+          </a>
+        </div>
+
+        <div class="hero-trust reveal" data-reveal>
+          <span class="stars" aria-hidden="true">★★★★★</span>
+          <span><strong>4.6</strong>/5 - 74 Google reviews</span>
+        </div>
+      </div>
+
+      <div class="hero-media reveal" data-reveal>
+        <div class="steam" aria-hidden="true"><span></span><span></span><span></span></div>
+        <div class="hero-frame glass tilt">
+          <img class="photo" id="heroPhoto"
+               src="https://images.unsplash.com/photo-1504754524776-8f4f37790ca0?auto=format&fit=crop&q=80&w=900"
+               alt="A colorful breakfast and coffee spread on a cafe table"
+               loading="eager" width="900" height="1100" />
+        </div>
+
+        <!-- Floating glass stat cards -->
+        <div class="float-card glass float-a">
+          <span class="fc-num">4.6★</span>
+          <span class="fc-label">Google rating</span>
+        </div>
+        <div class="float-card glass float-b">
+          <span class="fc-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </span>
+          <span class="fc-label"><strong>$10-20</strong><br/>per person</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= TRUST MARQUEE ================= -->
+  <section class="trust-strip" aria-label="Customer favorites">
+    <div class="marquee" data-marquee>
+      <div class="marquee-track">
+        <span class="chip">★ 4.6 Rating</span><span class="chip">Breakfast & Lunch</span>
+        <span class="chip">Croqueta Preparada</span><span class="chip">Plantain Soup</span>
+        <span class="chip">Great Prices</span><span class="chip">Order Online</span>
+        <span class="chip">Friendly Service</span><span class="chip">Three Lakes Favorite</span>
+        <!-- duplicate for seamless loop -->
+        <span class="chip" aria-hidden="true">★ 4.6 Rating</span><span class="chip" aria-hidden="true">Breakfast & Lunch</span>
+        <span class="chip" aria-hidden="true">Croqueta Preparada</span><span class="chip" aria-hidden="true">Plantain Soup</span>
+        <span class="chip" aria-hidden="true">Great Prices</span><span class="chip" aria-hidden="true">Order Online</span>
+        <span class="chip" aria-hidden="true">Friendly Service</span><span class="chip" aria-hidden="true">Three Lakes Favorite</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY CHOOSE US ================= -->
+  <section class="section why" id="why">
+    <div class="container">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">Why Bahia's</span>
+        <h2 class="section-title">Comfort food with a calm cafe rhythm</h2>
+        <p class="section-lead">A neighborhood coffee shop for quick breakfasts, easy lunches, and regulars who like good food without the fuss.</p>
+      </div>
+
+      <div class="why-grid">
+        <article class="why-card glass tilt reveal" data-reveal>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg></div>
+          <h3>Caring Service</h3>
+          <p>Guests call out the way people care for you - friendly, steady, and familiar.</p>
+        </article>
+        <article class="why-card glass tilt reveal" data-reveal>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <h3>Fair Prices</h3>
+          <p>Breakfast and lunch stay approachable, with most visits landing around $10-20.</p>
+        </article>
+        <article class="why-card glass tilt reveal" data-reveal>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+          <h3>Breakfast Staples</h3>
+          <p>Eggs, toast, ham croquettes, huevos rancheros, and coffee for easy mornings.</p>
+        </article>
+        <article class="why-card glass tilt reveal" data-reveal>
+          <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div>
+          <h3>Quick Lunch</h3>
+          <p>Close to work, easy to order, and built for a lunch break that still tastes homemade.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MENU (BENTO) ================= -->
+  <section class="section services" id="services">
+    <div class="container">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">Menu Highlights</span>
+        <h2 class="section-title">Breakfast, lunch, and cafe favorites</h2>
+        <p class="section-lead">A relaxed menu with sandwiches, soups, chicken plates, croquetas, eggs, and coffee-shop comfort.</p>
+      </div>
+
+      <div class="bento">
+        <!-- Featured photo tile -->
+        <article class="bento-item feature glass reveal" data-reveal>
+          <img class="photo" src="https://images.unsplash.com/photo-1528735602780-2552fd46c7af?auto=format&fit=crop&q=80&w=700" alt="A toasted sandwich served on a cafe table" loading="lazy" width="700" height="500" />
+          <div class="bento-overlay">
+            <h3>Club Sandwich</h3>
+            <p>A cafe classic for the lunch crowd - stacked, toasted, and easy to share.</p>
+          </div>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11h16"/><path d="M5 11a7 7 0 0 0 14 0"/><path d="M8 8c0-2 1.5-3 4-3s4 1 4 3"/></svg></div>
+          <h3>Plantain Soup</h3>
+          <p>Warm, savory, and comforting - the kind of bowl that makes lunch feel settled.</p>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 3v18"/><path d="M10 3v18"/><path d="M4 8h6"/><path d="M14 3h6v18h-6z"/></svg></div>
+          <h3>Bahia's Special Chicken Salad</h3>
+          <p>A fresh, filling house favorite when you want something lighter but still satisfying.</p>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="4"/><path d="M2 20h20"/><path d="M14 7h6"/><path d="M14 11h6"/></svg></div>
+          <h3>Toast, Egg & Croquettes</h3>
+          <p>Toast with egg, tomatoes, plus three ham croquettes for a proper breakfast plate.</p>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 17h16"/><path d="M6 7c2 4 10 4 12 0"/><path d="M6 17c2-4 10-4 12 0"/></svg></div>
+          <h3>Croqueta Preparada Sandwich</h3>
+          <p>Crisp croqueta flavor tucked into a pressed sandwich that is built for regulars.</p>
+        </article>
+
+        <!-- Featured photo tile -->
+        <article class="bento-item feature wide glass reveal" data-reveal>
+          <img class="photo" src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&q=80&w=800" alt="A bright lunch plate with greens and warm ingredients" loading="lazy" width="800" height="450" />
+          <div class="bento-overlay">
+            <h3>Chicken in Mushroom Sauce</h3>
+            <p>A warm lunch plate for days when a sandwich is not enough.</p>
+          </div>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/><path d="M3 12h18"/></svg></div>
+          <h3>Huevos Rancheros</h3>
+          <p>A bold breakfast plate with color, comfort, and enough flavor to carry the morning.</p>
+        </article>
+
+        <article class="bento-item glass tilt reveal" data-reveal>
+          <div class="service-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h12v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 2v2"/><path d="M12 2v2"/><path d="M16 2v2"/></svg></div>
+          <h3>Coffee & Breakfast</h3>
+          <p>Simple morning orders, hot coffee, and a calm place to start before work.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= ABOUT ================= -->
+  <section class="section about" id="about">
+    <div class="container about-grid">
+      <div class="about-media reveal" data-reveal>
+        <div class="about-frame glass tilt">
+          <img class="photo" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&q=80&w=800" alt="A relaxed coffee shop interior with tables and warm light" loading="lazy" width="800" height="900" />
+        </div>
+        <div class="about-badge glass">
+          <span class="ab-num">74</span>
+          <span class="ab-label">Google reviews</span>
+        </div>
+      </div>
+
+      <div class="about-content reveal" data-reveal>
+        <span class="eyebrow">About Bahia's</span>
+        <h2 class="section-title">A local cafe regulars come back to</h2>
+        <p>Bahia's Coffee Shop has the kind of menu people lean on during real weekdays: breakfast before work, lunch close to the office, and familiar plates that hit the spot.</p>
+        <p>Guests mention the tasty food, fair prices, and kind service again and again. It is casual, relaxed, and built around the simple pleasure of being taken care of.</p>
+
+        <div class="stats-grid">
+          <div class="stat-card glass"><span class="stat-number" data-count="74" data-suffix="+">0</span><span class="stat-label">Reviews</span></div>
+          <div class="stat-card glass"><span class="stat-number" data-count="4.6" data-decimals="1" data-suffix="★">0</span><span class="stat-label">Rating</span></div>
+          <div class="stat-card glass"><span class="stat-number stat-price">$10-20</span><span class="stat-label">Per person</span></div>
+          <div class="stat-card glass"><span class="stat-number" data-count="3" data-suffix="pm">0</span><span class="stat-label">Closes</span></div>
+        </div>
+
+        <a href="#contact" class="btn btn-primary magnetic">Send a note</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BAND (cafe photo bg) ================= -->
+  <section class="cta-band" aria-label="Order from Bahia's Coffee Shop">
+    <div class="container cta-inner glass reveal" data-reveal>
+      <div>
+        <h2>Breakfast, lunch, or a quick cafecito?</h2>
+        <p>Order online, check the menu, or stop by before 3pm for something fresh and comforting.</p>
+      </div>
+      <a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+order+online" target="_blank" rel="noopener noreferrer" class="btn btn-primary btn-lg magnetic">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+        Order Online
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= REVIEWS ================= -->
+  <section class="section reviews" id="reviews">
+    <div class="container">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">Customer Reviews</span>
+        <h2 class="section-title">Loved by breakfast regulars</h2>
+        <p class="section-lead">Rated <strong>4.6 stars</strong> across <strong>74 reviews</strong> - here's what customers say about Bahia's.</p>
+      </div>
+    </div>
+
+    <!-- Auto-scrolling glass review marquee -->
+    <div class="review-marquee" data-marquee>
+      <div class="review-track">
+        <article class="review-card glass">
+          <span class="review-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p>"Breakfast - good food, good service, great prices!"</p>
+          <div class="reviewer"><span class="reviewer-avatar">BG</span><div><span class="reviewer-name">Breakfast Guest</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass">
+          <span class="review-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p>"Very nice place, delicious food and the best is how people care of you."</p>
+          <div class="reviewer"><span class="reviewer-avatar">RC</span><div><span class="reviewer-name">Regular Customer</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass">
+          <span class="review-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p>"I eat here often since it's close to my job and their food is always tasty."</p>
+          <div class="reviewer"><span class="reviewer-avatar">OL</span><div><span class="reviewer-name">Office Lunch</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass">
+          <span class="review-stars" aria-label="5 out of 5 stars">★★★★★</span>
+          <p>"I've been coming to Bahia's for over 5 years now. The food is excellent, staff is very friendly, and the prices are great."</p>
+          <div class="reviewer"><span class="reviewer-avatar">PT</span><div><span class="reviewer-name">Patrick</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <!-- duplicate set for seamless loop (hidden from a11y tree) -->
+        <article class="review-card glass" aria-hidden="true">
+          <span class="review-stars">★★★★★</span>
+          <p>"Breakfast - good food, good service, great prices!"</p>
+          <div class="reviewer"><span class="reviewer-avatar">BG</span><div><span class="reviewer-name">Breakfast Guest</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass" aria-hidden="true">
+          <span class="review-stars">★★★★★</span>
+          <p>"Very nice place, delicious food and the best is how people care of you."</p>
+          <div class="reviewer"><span class="reviewer-avatar">RC</span><div><span class="reviewer-name">Regular Customer</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass" aria-hidden="true">
+          <span class="review-stars">★★★★★</span>
+          <p>"I eat here often since it's close to my job and their food is always tasty."</p>
+          <div class="reviewer"><span class="reviewer-avatar">OL</span><div><span class="reviewer-name">Office Lunch</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+        <article class="review-card glass" aria-hidden="true">
+          <span class="review-stars">★★★★★</span>
+          <p>"I've been coming to Bahia's for over 5 years now. The food is excellent, staff is very friendly, and the prices are great."</p>
+          <div class="reviewer"><span class="reviewer-avatar">PT</span><div><span class="reviewer-name">Patrick</span><span class="reviewer-meta">Google Review</span></div></div>
+        </article>
+      </div>
+    </div>
+
+    <div class="container reviews-cta reveal" data-reveal>
+      <a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+reviews" target="_blank" rel="noopener noreferrer" class="btn btn-glass magnetic">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" aria-hidden="true"><path d="M12 .587l3.668 7.431 8.2 1.193-5.934 5.784 1.401 8.169L12 18.896l-7.335 3.868 1.401-8.169L.132 9.211l8.2-1.193z"/></svg>
+        Read all 74 reviews on Google
+      </a>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT & HOURS ================= -->
+  <section class="section contact" id="contact">
+    <div class="container">
+      <div class="section-head reveal" data-reveal>
+        <span class="eyebrow">Get In Touch</span>
+        <h2 class="section-title">Order online or send a note</h2>
+        <p class="section-lead">Check the menu, find Bahia's on Google Maps, or send a quick message about pickup, lunch, or catering.</p>
+      </div>
+
+      <div class="contact-grid">
+        <div class="contact-left glass reveal" data-reveal>
+          <ul class="contact-info">
+            <li>
+              <span class="contact-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+              <div><span class="contact-label">Location</span><a href="https://www.google.com/maps/search/?api=1&query=Bahia%27s+Coffee+Shop+Three+Lakes+FL" target="_blank" rel="noopener noreferrer">Bahia's Coffee Shop - Three Lakes area</a></div>
+            </li>
+            <li>
+              <span class="contact-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg></span>
+              <div><span class="contact-label">Order</span><a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+order+online" target="_blank" rel="noopener noreferrer">Order online or view menu</a></div>
+            </li>
+            <li>
+              <span class="contact-ic" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
+              <div><span class="contact-label">Hours</span><span>Open today - closes 3:00 PM</span></div>
+            </li>
+          </ul>
+
+          <form class="contact-form" id="contact-form" novalidate>
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" autocomplete="name" required placeholder="Your name" />
+              <span class="error-msg" data-error-for="name" role="alert"></span>
+            </div>
+            <div class="form-row">
+              <label for="phone">Phone</label>
+              <input type="tel" id="phone" name="phone" autocomplete="tel" inputmode="tel" required placeholder="(305) 555-0123" />
+              <span class="error-msg" data-error-for="phone" role="alert"></span>
+            </div>
+            <div class="form-row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="4" required placeholder="Pickup question, lunch order, or catering note"></textarea>
+              <span class="error-msg" data-error-for="message" role="alert"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block magnetic">Send Message</button>
+            <p class="form-notice" id="form-notice" role="status" hidden>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+              This form is not connected yet, so no message was sent. Please use Order Online or Google Maps for now.
+            </p>
+          </form>
+        </div>
+
+        <div class="contact-right reveal" data-reveal>
+          <div class="hours-card glass">
+            <h3>Quick Details</h3>
+            <table class="hours-table">
+              <tbody>
+                <tr><th scope="row">Today</th><td>Open - 3:00 PM</td></tr>
+                <tr><th scope="row">Average Spend</th><td>$10-20</td></tr>
+                <tr><th scope="row">Menu</th><td>Breakfast & Lunch</td></tr>
+                <tr><th scope="row">Ordering</th><td>Online / Pickup</td></tr>
+                <tr><th scope="row">Rating</th><td>4.6 / 74 reviews</td></tr>
+                <tr class="closed"><th scope="row">Updates</th><td>Check Google listing</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="map-card glass" aria-label="Google map search for Bahia's Coffee Shop in Three Lakes, Florida">
+            <iframe
+              title="Map search for Bahia's Coffee Shop"
+              src="https://www.google.com/maps?q=Bahia%27s%20Coffee%20Shop%20Three%20Lakes%20FL&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              allowfullscreen>
+            </iframe>
+            <a href="https://www.google.com/maps/search/?api=1&query=Bahia%27s+Coffee+Shop+Three+Lakes+FL" target="_blank" rel="noopener noreferrer" class="map-link">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              Open in Google Maps
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="container footer-grid glass">
+      <div class="footer-brand">
+        <a href="#hero" class="logo">
+          <span class="logo-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h12v5a5 5 0 0 1-5 5H10a5 5 0 0 1-5-5V8Z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 2v2"/><path d="M12 2v2"/><path d="M16 2v2"/></svg></span>
+          <span class="logo-text">Bahia's <span class="accent">Coffee Shop</span></span>
+        </a>
+        <p class="footer-tagline">Good food, caring service, fair prices, and a relaxed neighborhood cafe feel.</p>
+        <span class="footer-rating"><span class="stars">★★★★★</span> 4.6 - 74 Google Reviews</span>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="#services">Menu</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#reviews">Reviews</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="https://www.google.com/maps/search/?api=1&query=Bahia%27s+Coffee+Shop+Three+Lakes+FL" target="_blank" rel="noopener noreferrer">Bahia's Coffee Shop<br />Three Lakes area</a></li>
+          <li><a href="https://www.google.com/search?q=Bahia%27s+Coffee+Shop+order+online" target="_blank" rel="noopener noreferrer">Order online</a></li>
+          <li>Open today - closes 3PM</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <span>&copy; 2026 Bahia's Coffee Shop. All rights reserved.</span>
+        <span class="footer-credit">Website by [Your Name]</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="to-top glass" id="to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="theme-switch.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

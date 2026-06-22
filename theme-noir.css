@@ -1,0 +1,130 @@
+/* ============================================================
+   THEME: NOIR — "After Dark"
+   Dark roasted espresso surfaces, warm cream text, gold accents.
+   A premium late-night cafe mood. Loaded AFTER style.css.
+   ============================================================ */
+
+:root {
+  --bg:           #14100B;
+  --bg-2:         #1C160F;
+  --paper:        #221A12;
+
+  --ink:          #F0E6D6;   /* light text on dark */
+  --ink-soft:     #C7B49A;
+  --muted:        #9A876F;
+
+  --primary:      #C9A24B;   /* gold */
+  --primary-2:    #E2C076;
+  --primary-ink:  #1A130C;   /* dark text on gold */
+  --trust:        #E7D6B4;   /* warm light for headings */
+  --green:        #A7B384;   /* muted sage, lightened */
+  --teal:         #D2A878;
+  --terra:        #DD8E6A;
+  --star:         #E0B65A;
+
+  --glass-bg:        rgba(38, 29, 20, 0.58);
+  --glass-bg-strong: rgba(26, 20, 14, 0.86);
+  --glass-brd:       rgba(201, 162, 75, 0.22);
+  --glass-blur:      blur(16px) saturate(120%);
+  --glass-shadow:    0 24px 60px rgba(0, 0, 0, 0.50), 0 2px 10px rgba(0, 0, 0, 0.40);
+  --glass-hi:        inset 0 1px 0 rgba(255, 240, 210, 0.06);
+
+  --radius-md: 14px;
+  --radius-lg: 22px;
+}
+
+body { background-color: var(--bg); color: var(--ink); }
+
+/* Dark ember background */
+.bg-mesh {
+  background:
+    radial-gradient(120% 90% at 12% 0%, rgba(201,162,75,0.16), transparent 52%),
+    radial-gradient(120% 95% at 92% 6%, rgba(221,142,106,0.12), transparent 50%),
+    radial-gradient(130% 110% at 50% 112%, rgba(120,90,50,0.16), transparent 55%),
+    linear-gradient(160deg, #14100B 0%, #1A140E 55%, #110D09 100%);
+}
+.bg-mesh::after { opacity: 0.05; mix-blend-mode: overlay; }
+
+/* Dark frosted panels with gold hairline */
+.nav-inner, .pill, .hero-frame, .why-card, .bento-item, .about-frame,
+.stat-card, .review-card, .contact-left, .hours-card, .map-card,
+.float-card, .about-badge {
+  background: rgba(34, 26, 18, 0.72);
+}
+.navbar.scrolled .nav-inner { background: var(--glass-bg-strong); box-shadow: 0 14px 36px rgba(0,0,0,0.5), var(--glass-hi); }
+
+/* Headings & accents */
+.accent { color: var(--primary-2); }
+.grad-text { background: linear-gradient(104deg, var(--primary-2) 0%, var(--primary) 50%, var(--terra) 100%);
+  -webkit-background-clip: text; background-clip: text; color: transparent; }
+.why-card h3, .bento-item h3, .hours-card h3, .footer-col h4 { color: var(--trust); }
+.section-lead, .why-card p, .bento-item p, .about-content p { color: var(--ink-soft); }
+
+/* Gold icon medallions */
+.why-icon, .service-icon, .contact-ic, .float-b .fc-icon, .logo-icon {
+  color: var(--primary-ink);
+  background: linear-gradient(140deg, var(--primary), var(--primary-2));
+  box-shadow: 0 8px 18px rgba(201,162,75,0.30);
+}
+.reviewer-avatar { color: var(--primary-ink); background: linear-gradient(140deg, var(--primary), var(--primary-2)); }
+.float-card .fc-num, .about-badge .ab-num, .stat-number { color: var(--primary-2); }
+
+/* Buttons */
+.btn-primary { background: linear-gradient(118deg, var(--primary), var(--primary-2)); color: var(--primary-ink);
+  border-color: rgba(255,240,200,0.22); box-shadow: 0 14px 30px rgba(201,162,75,0.26), var(--glass-hi); }
+.btn-glass { background: rgba(40,30,20,0.6); color: var(--primary-2); border-color: rgba(201,162,75,0.36); }
+.btn-glass:hover { color: var(--primary-2); border-color: rgba(201,162,75,0.7); }
+
+/* Nav links */
+.nav-link { color: var(--ink-soft); }
+.nav-link:hover, .nav-link.active { color: var(--primary-2); }
+.nav-link::after { background: var(--primary); }
+
+/* Trust strip: deep band with gold chips */
+.trust-strip { background: linear-gradient(95deg, #0F0B07, #211711 55%, #100C08); }
+.chip { background: rgba(201,162,75,0.10); border-color: rgba(201,162,75,0.28); color: #EBD9B6; }
+
+/* Menu feature overlays already dark — deepen slightly */
+.bento-overlay { background: linear-gradient(to top, rgba(10,7,4,0.92), rgba(10,7,4,0.25) 72%, transparent); }
+
+/* Reviews on a dark wash */
+.reviews { background-image: linear-gradient(rgba(18,13,9,0.90), rgba(26,19,13,0.94)),
+    url("https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=1500"); }
+.review-card p { color: var(--ink); }
+.review-card .quote-mark { color: var(--primary); opacity: 0.6; }
+.reviewer-meta, .stat-label { color: var(--muted); }
+
+/* CTA band */
+.cta-band { background-image: linear-gradient(100deg, rgba(15,11,7,0.94), rgba(40,28,16,0.82) 56%, rgba(201,162,75,0.40)),
+    url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=1500"); }
+.cta-inner { background: rgba(20,15,10,0.42); border-color: rgba(201,162,75,0.30); }
+
+/* Forms */
+.contact-form input, .contact-form textarea {
+  background: rgba(20,15,10,0.7); color: var(--ink); border-color: rgba(201,162,75,0.22);
+}
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8a795f; }
+.contact-form input:focus, .contact-form textarea:focus {
+  border-color: var(--primary); box-shadow: 0 0 0 3px rgba(201,162,75,0.20);
+}
+.form-row label { color: var(--ink); }
+.form-notice { background: rgba(201,162,75,0.16); border-color: rgba(201,162,75,0.40); color: var(--primary-2); }
+.hours-table th { color: var(--ink); }
+.hours-table td { color: var(--ink-soft); }
+.hours-table th, .hours-table td { border-bottom-color: rgba(201,162,75,0.14); }
+.hours-card h3 { border-bottom-color: rgba(201,162,75,0.18); }
+
+/* Map: tone for dark UI */
+.map-card iframe { filter: invert(0.9) hue-rotate(180deg) saturate(0.75) contrast(0.95); }
+.map-link { background: rgba(26,19,13,0.92); color: var(--ink); }
+.map-link:hover { background: #1A130C; color: var(--primary-2); }
+.map-link svg { color: var(--primary-2); }
+
+/* Footer */
+.footer-grid { background: linear-gradient(135deg, rgba(34,26,18,0.86), rgba(26,20,14,0.66)); }
+.footer-tagline, .footer-rating, .footer-col a, .footer-col li { color: var(--ink-soft); }
+.footer-col a:hover, .contact-info a:hover { color: var(--primary-2); }
+.footer-bottom-inner { color: var(--muted); }
+
+/* Back to top */
+.to-top { color: var(--primary-2); }
