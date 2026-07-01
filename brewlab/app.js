@@ -87,7 +87,17 @@ const METHODS = {
 
 const STORAGE_BREWS = 'brewlab.brews';
 const STORAGE_SETTINGS = 'brewlab.settings';
+const STORAGE_CAFFEINE = 'brewlab.caffeine';
 const CUP_SIZE = 200; // g Wasser pro Tasse
+const CAFFEINE_LIMIT = 400; // mg/Tag, EFSA-Richtwert für Erwachsene
+const SPOON_GRAMS = 6; // 1 EL gemahlener Kaffee
+
+const DRINKS = [
+  { id: 'espresso', name: 'Espresso', mg: 63 },
+  { id: 'filter', name: 'Filterkaffee', mg: 90 },
+  { id: 'cappuccino', name: 'Cappuccino', mg: 63 },
+  { id: 'coldbrew', name: 'Cold Brew', mg: 155 },
+];
 
 /* ---------- State ---------- */
 
@@ -98,11 +108,14 @@ const state = {
   view: 'setup',
   brew: null, // { steps, stepIndex, stepStart, pausedAt, totalStart, timerId, params }
   rating: 0,
+  convCups: 2,
 };
 
 /* ---------- Helpers ---------- */
 
 const $ = (id) => document.getElementById(id);
+
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 
 const fmtTime = (s) => {
   s = Math.max(0, Math.round(s));
@@ -151,14 +164,28 @@ function beep(times = 1) {
 
 function showView(view) {
   state.view = view;
-  for (const v of ['setup', 'brew', 'rate', 'log']) {
+  for (const v of ['setup', 'brew', 'rate', 'tools', 'log']) {
     $(`view-${v}`).hidden = v !== view;
   }
-  const tabView = view === 'log' ? 'log' : 'setup';
-  $('tab-brew').classList.toggle('is-active', tabView === 'setup');
-  $('tab-brew').setAttribute('aria-selected', tabView === 'setup');
-  $('tab-log').classList.toggle('is-active', tabView === 'log');
-  $('tab-log').setAttribute('aria-selected', tabView === 'log');
+  const active = view === 'log' ? 'tab-log' : view === 'tools' ? 'tab-tools' : 'tab-brew';
+  for (const id of ['tab-brew', 'tab-tools', 'tab-log']) {
+    $(id).classList.toggle('is-active', id === active);
+    $(id).setAttribute('aria-selected', String(id === active));
+  }
+}
+
+/* ---------- Startanimation ---------- */
+
+function initSplash() {
+  const splash = $('splash');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const finish = () => {
+    splash.classList.add('is-done');
+    document.body.classList.add('is-ready');
+    setTimeout(() => splash.remove(), 700);
+  };
+  if (reduce) finish();
+  else setTimeout(finish, 1600);
 }
 
 /* ---------- Setup Screen ---------- */
@@ -371,7 +398,7 @@ function saveBrewEntry() {
   const p = state.brew.params;
   const brews = loadBrews();
   brews.unshift({
-    id: Date.now().toString(36),
+    id: uid(),
     date: new Date().toISOString(),
     method: p.method,
     coffee: p.coffee,
@@ -444,13 +471,135 @@ function onLogClick(e) {
   }
 }
 
+/* ---------- Tools: Koffein-Tracker ---------- */
+
+function todayKey() {
+  const d = new Date();
+  return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`;
+}
+
+function loadCaffeine() {
+  try {
+    const data = JSON.parse(localStorage.getItem(STORAGE_CAFFEINE));
+    if (data && data.date === todayKey() && Array.isArray(data.items)) return data;
+  } catch { /* neu anfangen */ }
+  return { date: todayKey(), items: [] };
+}
+
+function saveCaffeine(data) {
+  localStorage.setItem(STORAGE_CAFFEINE, JSON.stringify(data));
+}
+
+function addDrink(drink) {
+  const data = loadCaffeine();
+  data.items.push({
+    id: uid(),
+    name: drink.name,
+    mg: drink.mg,
+    time: new Date().toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' }),
+  });
+  saveCaffeine(data);
+  renderCaffeine();
+}
+
+function removeDrink(id) {
+  const data = loadCaffeine();
+  data.items = data.items.filter((i) => i.id !== id);
+  saveCaffeine(data);
+  renderCaffeine();
+}
+
+function renderCaffeine() {
+  const data = loadCaffeine();
+  const total = data.items.reduce((s, i) => s + i.mg, 0);
+  const over = total > CAFFEINE_LIMIT;
+  $('caffeine-total').textContent = total;
+  $('caffeine-fill').style.width = `${Math.min(100, (total / CAFFEINE_LIMIT) * 100)}%`;
+  $('caffeine-fill').classList.toggle('is-over', over);
+  $('caffeine-progress').setAttribute('aria-valuenow', String(total));
+  $('caffeine-warning').hidden = !over;
+
+  const list = $('caffeine-list');
+  list.innerHTML = '';
+  for (const item of data.items.slice().reverse()) {
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span>${item.time} · ${item.name} <small>${item.mg} mg</small></span>
+      <button type="button" class="caffeine-remove" data-id="${item.id}" aria-label="${item.name} entfernen">×</button>`;
+    list.appendChild(li);
+  }
+}
+
+function renderDrinkGrid() {
+  const grid = $('drink-grid');
+  grid.innerHTML = '';
+  for (const drink of DRINKS) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'drink-btn';
+    btn.dataset.drink = drink.id;
+    btn.innerHTML = `<strong>${drink.name}</strong><small>+${drink.mg} mg</small>`;
+    btn.addEventListener('click', () => addDrink(drink));
+    grid.appendChild(btn);
+  }
+}
+
+/* ---------- Tools: Preis pro Tasse ---------- */
+
+const fmtEuro = (n) => n.toLocaleString('de-DE', { style: 'currency', currency: 'EUR' });
+
+function renderPrice() {
+  const kg = Number($('price-kg').value) || 0;
+  const gram = Number($('price-gram').value) || 0;
+  const cups = Number($('price-cups').value) || 0;
+  const perCup = (kg / 1000) * gram;
+  $('price-cup').textContent = fmtEuro(perCup);
+  $('price-month').textContent = fmtEuro(perCup * cups * 30.4);
+}
+
+/* ---------- Tools: Mengen-Umrechner ---------- */
+
+function renderConverter() {
+  const ratio = Math.min(20, Math.max(10, Number($('conv-ratio').value) || 16));
+  const water = state.convCups * CUP_SIZE;
+  const coffee = Math.round((water / ratio) * 2) / 2;
+  const spoons = Math.round((coffee / SPOON_GRAMS) * 2) / 2;
+  $('conv-cups').textContent = state.convCups;
+  $('conv-water').textContent = `${water} g`;
+  $('conv-coffee').textContent = `${coffee} g`;
+  $('conv-spoons').textContent = `${spoons} EL`;
+}
+
 /* ---------- Wiring ---------- */
 
 function init() {
+  initSplash();
   restoreSettings();
   renderMethods();
   updateRecipe();
   renderLog();
+
+  renderDrinkGrid();
+  renderCaffeine();
+  renderPrice();
+  renderConverter();
+
+  $('caffeine-list').addEventListener('click', (e) => {
+    const btn = e.target.closest('.caffeine-remove');
+    if (btn) removeDrink(btn.dataset.id);
+  });
+  for (const id of ['price-kg', 'price-gram', 'price-cups']) {
+    $(id).addEventListener('input', renderPrice);
+  }
+  $('conv-minus').addEventListener('click', () => {
+    state.convCups = Math.max(0.5, state.convCups - 0.5);
+    renderConverter();
+  });
+  $('conv-plus').addEventListener('click', () => {
+    state.convCups = Math.min(10, state.convCups + 0.5);
+    renderConverter();
+  });
+  $('conv-ratio').addEventListener('input', renderConverter);
 
   $('coffee-minus').addEventListener('click', () => {
     state.coffee = Math.max(10, state.coffee - 2);

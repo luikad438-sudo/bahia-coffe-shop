@@ -16,6 +16,12 @@ French Press, AeroPress), set coffee amount and ratio, then follow a guided
 step timer with per-pour target weights and audio cues. Finished brews can be
 rated and are stored in a local brew log (`localStorage`, no backend).
 
+The app has three sections: **Brühen** (ratio calculator + guided timer),
+**Tools** (daily caffeine tracker, cost-per-cup calculator, cups/coffee/water
+converter, and a grind/temperature/time reference table), and **Logbuch**
+(brew history). A short animated splash screen welcomes the user on launch
+(skipped when `prefers-reduced-motion` is set).
+
 It is an installable PWA: when served over HTTP(S), a service worker caches
 the app shell for offline use and the manifest enables "add to home screen".
 While a brew is running, the Screen Wake Lock API keeps the display awake

@@ -3,7 +3,7 @@
 /* BrewLab Service Worker – App-Shell aus dem Cache, damit die App
  * nach dem ersten Besuch komplett offline funktioniert. */
 
-const CACHE = 'brewlab-v1';
+const CACHE = 'brewlab-v2';
 const ASSETS = [
   './',
   './index.html',

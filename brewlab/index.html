@@ -12,6 +12,20 @@
   <link rel="apple-touch-icon" href="icon-192.png">
 </head>
 <body>
+  <!-- ===== Start-/Willkommensanimation ===== -->
+  <div class="splash" id="splash" aria-hidden="true">
+    <div class="splash-inner">
+      <svg class="splash-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <path class="cup-line" pathLength="1" d="M17 8h1a3 3 0 0 1 0 6h-1"/>
+        <path class="cup-line" pathLength="1" d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+        <path class="steam" d="M7 2c0 1.2 1 1.4 1 2.6"/>
+        <path class="steam steam-2" d="M11 2c0 1.2 1 1.4 1 2.6"/>
+      </svg>
+      <span class="splash-name">Brew<em>Lab</em></span>
+      <span class="splash-tag">Schön, dass du da bist. Zeit für guten Kaffee.</span>
+    </div>
+  </div>
+
   <div class="app">
 
     <header class="topbar">
@@ -27,6 +41,7 @@
       </div>
       <nav class="tabs" role="tablist">
         <button class="tab is-active" id="tab-brew" data-view="setup" role="tab" aria-selected="true">Brühen</button>
+        <button class="tab" id="tab-tools" data-view="tools" role="tab" aria-selected="false">Tools</button>
         <button class="tab" id="tab-log" data-view="log" role="tab" aria-selected="false">Logbuch <span class="log-count" id="log-count" hidden>0</span></button>
       </nav>
     </header>
@@ -127,6 +142,80 @@
             <button class="btn-ghost" id="discard-btn">Verwerfen</button>
             <button class="btn-primary btn-compact" id="save-btn">Ins Logbuch</button>
           </div>
+        </div>
+      </section>
+
+      <!-- ===== Tools ===== -->
+      <section class="view" id="view-tools" hidden>
+        <p class="tagline">Kleine Helfer rund um deinen Kaffee –<br>alles lokal, nichts verlässt deinen Browser.</p>
+
+        <h2 class="section-label">Koffein heute</h2>
+        <div class="tool-card">
+          <div class="caffeine-status">
+            <span class="caffeine-total"><output id="caffeine-total">0</output><small> mg</small></span>
+            <span class="caffeine-limit">von 400 mg Tagesrichtwert (EFSA)</span>
+          </div>
+          <div class="caffeine-bar" role="progressbar" aria-label="Koffeinaufnahme heute" aria-valuemin="0" aria-valuemax="400" aria-valuenow="0" id="caffeine-progress">
+            <div class="caffeine-fill" id="caffeine-fill"></div>
+          </div>
+          <p class="caffeine-warning" id="caffeine-warning" hidden>Du liegst über dem Tagesrichtwert – vielleicht ab jetzt entkoffeiniert?</p>
+          <div class="drink-grid" id="drink-grid"></div>
+          <ul class="caffeine-list" id="caffeine-list"></ul>
+        </div>
+
+        <h2 class="section-label">Was kostet deine Tasse?</h2>
+        <div class="tool-card">
+          <div class="tool-fields">
+            <label class="tool-field">
+              <span>Bohnenpreis</span>
+              <span class="tool-input"><input id="price-kg" type="number" min="1" max="200" step="0.5" value="24" inputmode="decimal"><small>€/kg</small></span>
+            </label>
+            <label class="tool-field">
+              <span>Kaffee pro Tasse</span>
+              <span class="tool-input"><input id="price-gram" type="number" min="5" max="40" step="1" value="14" inputmode="numeric"><small>g</small></span>
+            </label>
+            <label class="tool-field">
+              <span>Tassen pro Tag</span>
+              <span class="tool-input"><input id="price-cups" type="number" min="1" max="12" step="1" value="2" inputmode="numeric"><small>Stk.</small></span>
+            </label>
+          </div>
+          <p class="tool-result">Deine Tasse kostet <output id="price-cup">0,34 €</output> – das sind <output id="price-month">20,45 €</output> im Monat.</p>
+        </div>
+
+        <h2 class="section-label">Mengen-Umrechner</h2>
+        <div class="tool-card">
+          <div class="tool-fields">
+            <div class="tool-field">
+              <span>Tassen (à 200 ml)</span>
+              <div class="stepper stepper-sm">
+                <button type="button" class="stepper-btn" id="conv-minus" aria-label="Weniger Tassen">−</button>
+                <span class="stepper-value"><output id="conv-cups">2</output></span>
+                <button type="button" class="stepper-btn" id="conv-plus" aria-label="Mehr Tassen">+</button>
+              </div>
+            </div>
+            <label class="tool-field">
+              <span>Verhältnis 1:</span>
+              <span class="tool-input"><input id="conv-ratio" type="number" min="10" max="20" step="0.5" value="16" inputmode="decimal"></span>
+            </label>
+          </div>
+          <p class="tool-result">Du brauchst <output id="conv-coffee">25 g</output> Kaffee (≈ <output id="conv-spoons">4 EL</output>) auf <output id="conv-water">400 g</output> Wasser.</p>
+        </div>
+
+        <h2 class="section-label">Brüh-Referenz</h2>
+        <div class="tool-card ref-card">
+          <table class="ref-table">
+            <thead>
+              <tr><th>Methode</th><th>Mahlgrad</th><th>Wasser</th><th>Zeit</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>V60</td><td>mittelfein</td><td>92–96 °C</td><td>2:30–3:30</td></tr>
+              <tr><td>Chemex</td><td>mittelgrob</td><td>93–96 °C</td><td>4:00–5:00</td></tr>
+              <tr><td>French Press</td><td>grob</td><td>93–96 °C</td><td>4:00–5:00</td></tr>
+              <tr><td>AeroPress</td><td>fein–mittel</td><td>85–92 °C</td><td>1:30–2:30</td></tr>
+              <tr><td>Espresso</td><td>fein</td><td>92–94 °C</td><td>0:25–0:30</td></tr>
+            </tbody>
+          </table>
+          <p class="ref-hint">Faustregel: schmeckt es sauer → feiner mahlen oder heißer brühen; schmeckt es bitter → gröber mahlen oder kürzer ziehen lassen.</p>
         </div>
       </section>
 
