@@ -221,6 +221,26 @@ function restoreSettings() {
   } catch { /* Defaults behalten */ }
 }
 
+/* ---------- Wake Lock (Display an während des Brühens) ---------- */
+
+let wakeLock = null;
+
+async function acquireWakeLock() {
+  try {
+    wakeLock = await navigator.wakeLock?.request('screen');
+  } catch { /* nicht unterstützt oder verweigert – Timer läuft trotzdem */ }
+}
+
+function releaseWakeLock() {
+  wakeLock?.release().catch(() => {});
+  wakeLock = null;
+}
+
+// Beim Tab-Wechsel gibt der Browser den Lock frei – bei Rückkehr neu anfordern
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && state.view === 'brew') acquireWakeLock();
+});
+
 /* ---------- Timer-Engine ---------- */
 
 function startBrew(params) {
@@ -244,6 +264,7 @@ function startBrew(params) {
   $('pause-btn').textContent = 'Pause';
   renderStep();
   showView('brew');
+  acquireWakeLock();
   beep(1);
 }
 
@@ -317,6 +338,7 @@ function togglePause() {
 
 function stopTimer() {
   if (state.brew?.timerId) clearInterval(state.brew.timerId);
+  releaseWakeLock();
 }
 
 function abortBrew() {
@@ -471,6 +493,11 @@ function init() {
 
   $('ring-progress').style.strokeDasharray = String(RING_CIRC);
   $('ring-progress').style.strokeDashoffset = String(RING_CIRC);
+
+  // Offline-Fähigkeit & Installierbarkeit (nur über http/https, nicht file://)
+  if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+    navigator.serviceWorker.register('./sw.js').catch(() => {});
+  }
 }
 
 init();
