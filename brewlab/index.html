@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BrewLab – Dein Brüh-Assistent</title>
+  <meta name="description" content="Geführter Brüh-Timer für V60, Chemex, French Press und AeroPress – mit Ratio-Rechner und Logbuch.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%98%95%3C/text%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="app">
+
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M17 8h1a3 3 0 0 1 0 6h-1"/>
+            <path d="M3 8h14v6a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5V8z"/>
+            <path d="M7 2c0 1.2 1 1.4 1 2.6M11 2c0 1.2 1 1.4 1 2.6"/>
+          </svg>
+        </span>
+        <span class="brand-name">Brew<em>Lab</em></span>
+      </div>
+      <nav class="tabs" role="tablist">
+        <button class="tab is-active" id="tab-brew" data-view="setup" role="tab" aria-selected="true">Brühen</button>
+        <button class="tab" id="tab-log" data-view="log" role="tab" aria-selected="false">Logbuch <span class="log-count" id="log-count" hidden>0</span></button>
+      </nav>
+    </header>
+
+    <main>
+      <!-- ===== Setup ===== -->
+      <section class="view" id="view-setup">
+        <p class="tagline">Ratio berechnen, Timer starten, Schritt für Schritt<br>zum perfekten Kaffee.</p>
+
+        <h2 class="section-label">Methode</h2>
+        <div class="method-grid" id="method-grid" role="radiogroup" aria-label="Brühmethode"></div>
+
+        <h2 class="section-label">Rezept</h2>
+        <div class="recipe-card">
+          <div class="recipe-row">
+            <div class="field">
+              <span class="field-label">Kaffee</span>
+              <div class="stepper">
+                <button type="button" class="stepper-btn" id="coffee-minus" aria-label="Weniger Kaffee">−</button>
+                <span class="stepper-value"><output id="coffee-value">20</output><small> g</small></span>
+                <button type="button" class="stepper-btn" id="coffee-plus" aria-label="Mehr Kaffee">+</button>
+              </div>
+            </div>
+            <div class="field field-grow">
+              <span class="field-label">Verhältnis <output id="ratio-label">1:16</output></span>
+              <input type="range" id="ratio-slider" min="14" max="18" step="0.5" value="16" aria-label="Kaffee-Wasser-Verhältnis">
+              <div class="range-scale"><span>stärker</span><span>milder</span></div>
+            </div>
+          </div>
+          <div class="recipe-summary">
+            <div class="summary-item">
+              <span class="summary-value" id="water-value">320 g</span>
+              <span class="summary-caption">Wasser</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-value" id="cups-value">≈ 2 Tassen</span>
+              <span class="summary-caption">Ergibt</span>
+            </div>
+            <div class="summary-item summary-grind">
+              <span class="summary-value summary-value-sm" id="grind-value">Mittelfein</span>
+              <span class="summary-caption">Mahlgrad</span>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-primary" id="start-btn">
+          Brühvorgang starten
+          <span class="btn-time" id="start-btn-time">≈ 3:00 min</span>
+        </button>
+      </section>
+
+      <!-- ===== Brewing ===== -->
+      <section class="view" id="view-brew" hidden>
+        <div class="brew-header">
+          <span class="brew-method" id="brew-method-label">V60</span>
+          <span class="brew-total" id="brew-total-time">0:00</span>
+        </div>
+
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 220 220" aria-hidden="true">
+            <circle class="ring-track" cx="110" cy="110" r="98"/>
+            <circle class="ring-progress" id="ring-progress" cx="110" cy="110" r="98"/>
+          </svg>
+          <div class="ring-inner">
+            <span class="step-count" id="step-count">Schritt 1/4</span>
+            <span class="step-timer" id="step-timer">0:45</span>
+            <span class="step-target" id="step-target">bis 40 g</span>
+          </div>
+        </div>
+
+        <div class="step-card">
+          <h2 class="step-name" id="step-name">Blooming</h2>
+          <p class="step-instruction" id="step-instruction"></p>
+          <p class="step-next" id="step-next"></p>
+        </div>
+
+        <div class="brew-actions">
+          <button class="btn-ghost" id="abort-btn">Abbrechen</button>
+          <button class="btn-primary btn-compact" id="pause-btn">Pause</button>
+        </div>
+      </section>
+
+      <!-- ===== Rating ===== -->
+      <section class="view" id="view-rate" hidden>
+        <div class="rate-card">
+          <span class="rate-emoji" aria-hidden="true">☕</span>
+          <h2 class="rate-title">Fertig gebrüht!</h2>
+          <p class="rate-sub" id="rate-summary">V60 · 20 g · 1:16 · 320 g Wasser</p>
+          <div class="stars" id="stars" role="radiogroup" aria-label="Bewertung">
+            <button class="star" data-value="1" aria-label="1 Stern">★</button>
+            <button class="star" data-value="2" aria-label="2 Sterne">★</button>
+            <button class="star" data-value="3" aria-label="3 Sterne">★</button>
+            <button class="star" data-value="4" aria-label="4 Sterne">★</button>
+            <button class="star" data-value="5" aria-label="5 Sterne">★</button>
+          </div>
+          <textarea id="rate-notes" rows="3" placeholder="Notizen – z. B. Mahlgrad feiner, etwas bitter …"></textarea>
+          <div class="rate-actions">
+            <button class="btn-ghost" id="discard-btn">Verwerfen</button>
+            <button class="btn-primary btn-compact" id="save-btn">Ins Logbuch</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== Log ===== -->
+      <section class="view" id="view-log" hidden>
+        <h2 class="section-label">Deine Brühungen</h2>
+        <div class="log-empty" id="log-empty">
+          <span aria-hidden="true">📓</span>
+          <p>Noch keine Einträge.<br>Deine gebrühten Kaffees landen hier.</p>
+        </div>
+        <ul class="log-list" id="log-list"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">Ein Projekt von Bahia’s Coffee Shop · läuft komplett offline, Daten bleiben im Browser.</footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
