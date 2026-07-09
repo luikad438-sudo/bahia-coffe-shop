@@ -4,8 +4,9 @@ Static website for Bahia's Coffee Shop, built with HTML, CSS, and vanilla JavaSc
 
 ## Files
 
-- `index.html` - page markup and SEO metadata
-- `style.css` - responsive visual design and layout
+- `index.html` - home page markup and SEO metadata (curated menu highlights)
+- `menu.html` - full menu page, grouped by category, linked from the home highlights
+- `style.css` - responsive visual design and layout (base "Glass" look)
 - `script.js` - navigation, reveal effects, review marquee, and contact form behavior
 - `brewlab/` - BrewLab, a standalone guided brewing companion app (see below)
 
@@ -29,6 +30,18 @@ While a brew is running, the Screen Wake Lock API keeps the display awake
 
 Open `brewlab/index.html` in a browser to use it (the service worker only
 activates when served over HTTP, e.g. with any static web server).
+
+## Style Preview
+
+Open `preview.html` to compare three UI/UX directions on the same content via a
+bottom style switcher (the choice is remembered in `localStorage`):
+
+- **Glass** - warm, frosted, rounded (the current production look in `index.html`)
+- **Editorial** - flat paper & ink, sharp corners, hairline rules (`theme-editorial.css`)
+- **Noir** - dark espresso surfaces with gold accents (`theme-noir.css`)
+
+Each theme is an override layer loaded on top of `style.css`, swapped by
+`theme-switch.js`. `preview.html` is a demo page and is excluded from indexing.
 
 ## Run Locally
 

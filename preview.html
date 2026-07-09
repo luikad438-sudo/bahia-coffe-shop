@@ -4,9 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+  <meta name="robots" content="noindex" />
+
   <!-- ============ SEO / META ============ -->
-  <title>Bahia's Coffee Shop | Breakfast & Lunch in Three Lakes</title>
-  <meta name="description" content="Bahia's Coffee Shop serves relaxed breakfast, lunch, coffee, sandwiches, plantain soup, croquetas, and daily favorites. Rated 4.6 stars across 74 Google reviews." />
+  <title>Style Preview — Bahia's Coffee Shop</title>
+  <meta name="description" content="Style preview for Bahia's Coffee Shop — switch between Glass, Editorial and Noir UI directions." />
   <meta name="theme-color" content="#F7F1E7" />
   <meta name="author" content="Bahia's Coffee Shop" />
 
@@ -24,6 +26,34 @@
 
   <!-- ============ STYLES ============ -->
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" id="theme-css" href="theme-glass.css" />
+
+  <!-- ============ STYLE SWITCHER (preview only) ============ -->
+  <style>
+    .style-switcher{
+      position:fixed; z-index:2000; left:50%; bottom:1.1rem; transform:translateX(-50%);
+      display:flex; align-items:center; gap:.35rem; padding:.4rem;
+      border-radius:999px; background:rgba(20,16,11,.82);
+      -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px);
+      box-shadow:0 14px 40px rgba(0,0,0,.32); border:1px solid rgba(255,255,255,.12);
+    }
+    .style-switcher .ss-label{
+      color:#EADFCB; font:800 .7rem/1 'Nunito Sans',sans-serif;
+      text-transform:uppercase; letter-spacing:.12em; padding:0 .5rem 0 .65rem; opacity:.8;
+    }
+    .style-switcher button{
+      cursor:pointer; border:0; padding:.5rem .95rem; border-radius:999px;
+      font:800 .82rem/1 'Nunito Sans',sans-serif; color:#EADFCB; background:transparent;
+      transition:background .2s ease,color .2s ease;
+    }
+    .style-switcher button:hover{ background:rgba(255,255,255,.10); }
+    .style-switcher button.is-active{ background:#E2C076; color:#1A130C; }
+    @media (max-width:560px){
+      .style-switcher{ gap:.2rem; padding:.35rem; }
+      .style-switcher .ss-label{ display:none; }
+      .style-switcher button{ padding:.5rem .7rem; font-size:.78rem; }
+    }
+  </style>
 
   <!-- ============ STRUCTURED DATA (Local Business SEO) ============ -->
   <script type="application/ld+json">
@@ -44,6 +74,14 @@
   <a href="#hero" class="skip-link">Skip to main content</a>
 
   <div class="bg-mesh" aria-hidden="true"></div>
+
+  <!-- ================= STYLE SWITCHER ================= -->
+  <div class="style-switcher" role="group" aria-label="Choose a visual style">
+    <span class="ss-label">Style</span>
+    <button type="button" data-theme="glass" aria-pressed="true">Glass</button>
+    <button type="button" data-theme="editorial" aria-pressed="false">Editorial</button>
+    <button type="button" data-theme="noir" aria-pressed="false">Noir</button>
+  </div>
 
   <!-- ================= NAVBAR ================= -->
   <header class="navbar" id="navbar">
@@ -447,7 +485,6 @@
           <li><a href="#about">About</a></li>
           <li><a href="#reviews">Reviews</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="brewlab/">BrewLab Brewing Timer</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -471,6 +508,7 @@
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
+  <script src="theme-switch.js"></script>
   <script src="script.js"></script>
 </body>
 </html>

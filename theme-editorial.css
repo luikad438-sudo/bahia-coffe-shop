@@ -1,0 +1,125 @@
+/* ============================================================
+   THEME: EDITORIAL — "La Carte"
+   Paper & ink, sharp corners, hairline rules, no glass blur.
+   A calm, magazine/printed-menu aesthetic. Loaded AFTER style.css.
+   ============================================================ */
+
+:root {
+  --bg:           #F3ECE0;
+  --bg-2:         #ECE2D2;
+  --paper:        #FBF6EC;
+
+  --ink:          #211913;
+  --ink-soft:     #5A4B3D;
+  --muted:        #8C7B69;
+
+  /* one disciplined warm accent: brick */
+  --primary:      #9E3B2E;
+  --primary-2:    #B8503F;
+  --primary-ink:  #FBF6EC;
+  --trust:        #211913;
+  --green:        #5A6B4A;
+  --terra:        #9E3B2E;
+  --star:         #A9802F;
+
+  /* flatten everything: sharp, printed corners */
+  --radius-sm: 2px;
+  --radius-md: 3px;
+  --radius-lg: 4px;
+  --radius-pill: 3px;
+
+  /* kill the frosted-glass system: hairline borders, no heavy shadow */
+  --glass-bg:        var(--paper);
+  --glass-bg-strong: var(--paper);
+  --glass-brd:       rgba(33, 25, 19, 0.16);
+  --glass-blur:      none;
+  --glass-shadow:    none;
+  --glass-hi:        none;
+
+  --t:        220ms cubic-bezier(0.4, 0, 0.2, 1);
+  --t-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Flat paper background with a faint ruled grain, no colour blobs */
+.bg-mesh { background: var(--bg); }
+.bg-mesh::after { opacity: 0.03; }
+
+/* Glass becomes flat paper with a crisp hairline */
+.glass {
+  background: var(--paper);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  border: 1px solid var(--glass-brd);
+  box-shadow: none;
+}
+
+/* Neutralise the semi-transparent component fills */
+.nav-inner, .pill, .hero-frame, .why-card, .bento-item, .about-frame,
+.stat-card, .review-card, .contact-left, .hours-card, .map-card,
+.float-card, .about-badge {
+  background: var(--paper);
+}
+.navbar.scrolled .nav-inner { box-shadow: 0 1px 0 var(--glass-brd); }
+
+/* Typography: editorial, generous, ruled */
+h1, h2, h3, h4 { font-weight: 600; }
+.section-title { font-size: 3.3rem; letter-spacing: -0.02em; }
+.eyebrow { letter-spacing: 0.28em; color: var(--primary); }
+.hero-title { font-weight: 600; }
+.grad-text { background: none; -webkit-background-clip: border-box; background-clip: border-box;
+  color: var(--primary); font-style: italic; }
+
+/* Hairline section rules instead of floating cards */
+.section { border-top: 1px solid rgba(33,25,19,0.10); }
+.hero, .trust-strip { border-top: 0; }
+
+/* Buttons: rectangular, printed */
+.btn { border-radius: 2px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; font-size: 0.82rem; }
+.btn::after { display: none; }
+.btn-primary { background: var(--ink); color: var(--paper); border-color: var(--ink); box-shadow: none; }
+.btn-primary:hover { background: var(--primary); border-color: var(--primary); transform: translateY(-1px); }
+.btn-glass { background: transparent; color: var(--ink); border-color: var(--ink); }
+.btn-glass:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+/* Icon chips: outline squares, not gradient circles */
+.why-icon, .service-icon, .contact-ic, .float-b .fc-icon, .logo-icon, .reviewer-avatar {
+  background: transparent; color: var(--ink);
+  border: 1px solid var(--ink); border-radius: 2px; box-shadow: none;
+}
+.reviewer-avatar { color: var(--ink); }
+
+/* Cards: lift via rule + offset, no glow */
+.why-card, .bento-item { transition: transform var(--t), border-color var(--t); }
+.why-card:hover, .bento-item:hover { box-shadow: none; border-color: var(--ink); transform: translateY(-3px); }
+.why-card:nth-child(even) { transform: none; }
+
+/* Eyebrow accent colour back to brick line */
+.section-head .eyebrow::before, .section-head .eyebrow::after,
+.eyebrow::before { opacity: 0.7; }
+
+/* Nav as a clean ruled bar */
+.nav-inner { border-radius: 2px; border-bottom: 1px solid var(--glass-brd); }
+.nav-link::after { background: var(--primary); height: 1px; }
+
+/* Trust strip: ink band, not green-brown gradient */
+.trust-strip { background: var(--ink); }
+.chip { background: transparent; border-color: rgba(255,255,255,0.28); color: #F3ECE0;
+  text-transform: uppercase; letter-spacing: 0.06em; font-size: 0.78rem; }
+
+/* CTA band: solid ink panel, no parallax photo flash */
+.cta-band { background-image: none; background: var(--ink); background-attachment: scroll; }
+.cta-inner { background: transparent; border: 1px solid rgba(255,255,255,0.18); border-radius: 3px; }
+
+/* Reviews: plain paper, quiet */
+.reviews { background-image: none; background: var(--bg-2); }
+.review-card .quote-mark { color: var(--primary); opacity: 0.5; }
+
+/* Forms */
+.contact-form input, .contact-form textarea { border-radius: 2px; background: #fff; border-color: rgba(33,25,19,0.22); }
+.form-notice { border-radius: 2px; }
+
+/* Footer flat */
+.footer-grid { background: var(--paper); border: 1px solid var(--glass-brd); border-radius: 3px; }
+
+/* Restraint: drop the steam wisps for the printed look */
+.steam { display: none; }
+.to-top { border-radius: 2px; }
